@@ -1,0 +1,69 @@
+class Pair{
+	int account_no,amount;
+	String opern;
+	
+}
+class Admin {
+	Scanner sc=new Scanner(System.in);
+	private int max_trans;
+	int pw;
+	Admin(){
+		pw=1234;
+		max_trans=50000;
+	}
+	public boolean ispwvalid(int password) {
+		boolean yn=false;
+		if(password==this.pw)
+			yn=true;
+		return yn;
+	}
+	public int functioninvoker() {
+		System.out.println("WELCOME!!!");
+		String fun[]=new String[] {"Change cashlimit","View account details","Set Maxtransaction","Ministatement"};
+		System.out.println("Choose options:");
+		for(int i=0;i<fun.length;i++) {
+			System.out.println(i+1+" "+fun[i]);
+		}
+		System.out.println("PRESS (1/2/3/4)");
+		int opt=sc.nextInt();
+		return opt;
+	}
+	public int setmaxtransaction() {
+		System.out.println("Enter maximum transaction amount:");
+		int trans=sc.nextInt();
+		return trans;
+	}
+	public int getmaxtransaction() {
+		return this.max_trans;
+	}
+	public void displaymenu(CashDispenser c,Database d) {
+		int opt=functioninvoker();
+		switch(opt) {
+		case 1:
+			//CashDispenser c=new CashDispenser();
+			c.setcashlimit();
+			break;
+		case 2:
+			System.out.println("Enter account number:");
+			int num=sc.nextInt();
+			 double bal=d.data.get(num).getaccbalance();
+			 System.out.println("Money in account number"+num+" is "+bal);
+			 break;
+		case 3:
+			max_trans=setmaxtransaction();
+			System.out.println("Max transaction is set to"+max_trans);
+			break;
+		case 4:
+			System.out.println("Enter account number:");
+			int num1=sc.nextInt();
+			for(int i=0;i<d.data.get(num1).pl.size();i++) {
+				   System.out.println("This amount "+d.data.get(num1).pl.get(i).amount+"  has been "+d.data.get(num1).pl.get(i).opern);
+				   }
+			
+			
+		}
+	}
+	
+	
+	 
+}
