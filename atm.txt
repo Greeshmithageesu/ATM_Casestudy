@@ -1,0 +1,93 @@
+class ATM implements display{
+	   Scanner sc=new Scanner(System.in);
+	   boolean isUservalid=false;
+	   CashDispenser cash=new CashDispenser();
+	   Database data=new Database();
+	   int present_pin=0;
+	   int present_acc=0;
+	private boolean isuserauthenticated=false;
+	  public int functioninvoker() {
+		  String[]fun=new String[] {"admin","customer"};
+		  for(int i=0;i<fun.length;i++) {
+			  System.out.println(i+1+" "+fun[i]);
+		  }
+		  System.out.println("Press key(1/2):");
+		  int opt=sc.nextInt();
+		  return opt;
+	  }
+	  public void displayMenu() {
+	while(true) {
+		  int option=functioninvoker();
+		  System.out.println("ENTER 0 if you want to exit");
+		 if(option==1) {
+			  System.out.println("Enter password:");
+			  int opt=sc.nextInt();
+			  Admin ad=new Admin();
+			  if(ad.ispwvalid(opt)) {
+				  ad.displaymenu(cash,data);
+			  }
+			  else {
+				  System.out.println("Invalid password..Try again..");
+			  }
+		 }
+			  if(option==2) {
+				  while(true) {
+					   while(!isuserauthenticated) {
+						   System.out.println("WELCOME!!!");
+						   System.out.println("Enter ur account number:");
+						   int acc=sc.nextInt();
+						   System.out.println("Enter pin number:");
+						   int pin=sc.nextInt();
+						   isuserauthenticated=data.isuservalid(acc, pin);
+						   if(isuserauthenticated) {
+							   present_acc=acc;
+							   present_pin=pin;
+						   }
+						   else {
+							   System.out.println("Invalid credentials!!..Please try again..");
+						   }  
+					   }
+					   System.out.println("WELCOME!!!");
+					   String[]func=new String[] {"Balanceinquiry","Withdrawal","Deposit","Change pin","Ministatement","EXIT"};
+					   for(int i=0;i<func.length;i++) {
+						   System.out.println(i+1+" "+func[i]);
+					   }
+					   System.out.println("PRESS 1/2/3/4/5/6");
+					   int opt=sc.nextInt();
+					   switch(opt) {
+					   case 1:
+						   Balanceinquiry temp=new Balanceinquiry(present_acc,data);
+						   temp.execute();
+						   break;
+					   case 2:
+						   Withdrawal temp1=new Withdrawal(present_acc,data,cash);
+						   temp1.execute();
+						   break;
+					   case 3:
+						   Deposit temp2=new Deposit(present_acc,data);
+						   temp2.execute();
+						   break; 
+					   case 4:
+						   data.changepin(present_acc,present_pin);
+					   case 5:
+						   for(int i=0;i<data.data.get(present_acc).pl.size();i++) {
+							   System.out.println("This amount "+data.data.get(present_acc).pl.get(i).amount+"  has been "+data.data.get(present_acc).pl.get(i).opern);
+						   }
+						   
+						   
+					   }
+					   isuserauthenticated=false;
+					   if(opt==6) {
+							  System.out.println("Leaving ATM...Thanks for visiting!!");
+							   break;
+					   }
+					   
+					  }
+			 }
+		 if(option==0) {
+			 break;
+		 }
+	   }
+	}
+	  
+}
