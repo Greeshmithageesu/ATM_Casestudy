@@ -1,0 +1,4 @@
+interface display{
+   abstract int functioninvoker();
+	//abstract void displayMenu();
+}
