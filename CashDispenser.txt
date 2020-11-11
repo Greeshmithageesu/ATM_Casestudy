@@ -1,0 +1,96 @@
+class CashDispenser{
+	Scanner sc=new Scanner(System.in);
+	private  static final int COUNT1=1000;
+	private static final int COUNT2=500;
+	private static final int COUNT3=1000;
+	private static final int COUNT4=400;
+	private int cnt1,cnt2,cnt3,cnt4;
+	CashDispenser(){
+		cnt1=COUNT1;
+		cnt2=COUNT2;
+		cnt3=COUNT3;
+		cnt4=COUNT4;
+	}
+	public int functioninvoke() {
+		System.out.println("Choose the denomination of notes 1.100 2.200 3.500 4.2000");
+		System.out.println("PRESS (1/2/3/4)");
+		int opt=sc.nextInt();
+		return opt;	
+	}
+	public void setcashlimit() {
+		int option=functioninvoke();
+		if(option==1) {
+			System.out.println("Set the notes limit to be dipensed:(enter b/w 0-1000)");
+			int opt=sc.nextInt();
+			cnt1=opt;
+			System.out.println("Cash limit set to"+cnt1);
+		}
+		if(option==2) {
+			System.out.println("Set the notes limit to be dipensed:(enter b/w 0-500)");
+			int opt=sc.nextInt();
+			cnt2=opt;
+			System.out.println("Cash limit set to"+cnt2);
+		}
+		if(option==3) {
+			System.out.println("Set the notes limit to be dipensed:(enter b/w 0-1000)");
+			int opt=sc.nextInt();
+			cnt3=opt;
+			System.out.println("Cash limit set to"+cnt3);
+		}
+		if(option==4) {
+			System.out.println("Set the notes limit to be dipensed:(enter b/w 0-400)");
+			int opt=sc.nextInt();
+			cnt4=opt;
+			System.out.println("Cash limit set to"+cnt4);
+		}
+	}
+	public boolean iscashavailable(int amount) {
+		int option=functioninvoke();
+		int notesrequired=0;
+		boolean yn=false;
+		switch(option) {
+		case 1:
+			notesrequired=amount/100;
+			if(cnt1>=notesrequired)
+				yn=true;
+			break;
+		case 2:
+			notesrequired=amount/200;
+			if(cnt2>=notesrequired)
+				yn=true;
+			
+			break;
+		case 3:
+			notesrequired=amount/500;
+			if(cnt3>=notesrequired)
+				yn=true;
+			break;
+		case 4:
+			notesrequired=amount/2000;	
+			if(cnt4>=notesrequired)
+				yn=true;
+			break;
+		}
+		return yn;	
+	}
+	public void cashdispensed(int amount) {
+		int option=functioninvoke();
+        int count1=0,count2=0,count3=0,count4=0;
+		if(option==1) {
+	    count1=amount/100;
+	   cnt1-=count1;
+		}
+		if(option==2) {
+		    count2=amount/200;
+		   cnt2-=count2;
+			}
+		if(option==3) {
+		    count3=amount/500;
+		   cnt3-=count3;
+			}
+		if(option==4) {
+		    count4=amount/2000;
+		   cnt4-=count4;
+			}
+	}
+}
