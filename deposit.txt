@@ -1,0 +1,44 @@
+class Deposit{
+	Scanner sc=new Scanner(System.in);
+	private int accnum;
+	private Database data;
+	private Admin ad=new Admin();
+	Deposit(int num,Database bankdata){
+		this.accnum=num;
+		this.data=bankdata;
+	}
+	public void execute() {
+	int amount;
+	System.out.println("Enter ur amount OR enter 0 if you want to cancel deposit:");
+	//System.out.println("If you want to deposit in your account(ENTER 1) else (ENTER 2)");
+	amount=sc.nextInt();
+	System.out.println("If you want to deposit in your account(ENTER 1) else (ENTER 2)");
+	int opt=sc.nextInt();
+    if(amount!=0 && ad.getmaxtransaction()>=amount) {
+    	if(opt==1) {
+    	System.out.println("Please insert the envolope having amount "+ amount+".");
+    	data.credit(accnum, amount);
+    	System.out.println("Your envolope has been received");
+    	Pair pair=new Pair();
+		pair.amount=amount;
+        pair.opern="deposit";
+		data.data.get(accnum).pl.add(pair);
+    	}
+    	if(opt==2) {
+    		System.out.println("Enter the account number you want to deposit your amount:");
+    		int acc=sc.nextInt();
+    		System.out.println("Please insert the envolope having amount "+ amount+".");
+    		data.credit(acc, amount);
+    		System.out.println("Your envolope has been received");
+    		Pair pair=new Pair();
+    		pair.amount=amount;
+            pair.opern="deposited";
+    		data.data.get(accnum).pl.add(pair);
+    		
+    	}
+      }
+    else {
+    	System.out.println("Cancelling Transaction..");
+      }
+   }
+}
