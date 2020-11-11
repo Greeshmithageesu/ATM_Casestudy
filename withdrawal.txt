@@ -1,0 +1,46 @@
+class Withdrawal{
+	Scanner sc=new Scanner(System.in);
+	private double balance;
+	private int accnum;
+	private Database data;
+	private CashDispenser cd;
+	private Admin ad=new Admin();
+	Withdrawal(int num,Database bankdata,CashDispenser c){
+		this.accnum=num;
+		this.data=bankdata;
+		this.cd=c;
+	}
+	public void execute() {
+		boolean cashdispensed=false;
+		while(!cashdispensed) {
+			System.out.println("Choose your withdrawal amount:");
+			int amount=sc.nextInt();
+			int opt;
+			System.out.println("Enter 0 if you want to cancel withdrwal OR Enter anynumber to continue:");
+			opt=sc.nextInt();
+			if(opt!=0) {
+				balance=data.getbalance(accnum);
+				if(amount<=balance && ad.getmaxtransaction()>=amount) {
+					if(cd.iscashavailable(amount)) {
+						data.debit(accnum, amount);
+						cashdispensed=true;
+						cd.cashdispensed(amount);
+						Pair pair=new Pair();
+						pair.amount=amount;
+	                    pair.opern="withdrawed";
+						data.data.get(accnum).pl.add(pair);
+						System.out.println("Cash will be dispensed now..Please collect it..");
+					}
+					else
+						System.out.println("Cash is not available in atm");
+				}
+				else
+					System.out.println("Cash is not available in your account..");
+			}
+			else {
+				System.out.println("Cancelling transaction..");
+				break;
+			}	
+		}
+	}
+}
