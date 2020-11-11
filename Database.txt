@@ -1,0 +1,61 @@
+class Database{
+	Scanner sc=new Scanner(System.in);
+    ArrayList<Useraccount>data=new ArrayList<>();
+	Database(){
+		Useraccount user=new Useraccount();
+		for(int i=0;i<50001;i++) {
+			user.setaccountnum(i);
+			user.setpin(i+1);
+			data.add(user);
+			user=new Useraccount();
+		}
+	}
+	private Useraccount searchaccount(int num) {
+		for(int i=0;i<data.size();i++) {
+			if(data.get(i).getaccountnum()==num)
+				return data.get(i);
+		}
+		return null;
+	}
+	public void credit(int num,double amount) {
+		if(num<data.size())
+		data.get(num).credit(amount);
+		else
+			System.out.println("User is not valid");
+	}
+	public void debit(int num,double amount) {
+		if(num<data.size())
+			data.get(num).debit(amount);
+			else
+				System.out.println("User is not valid");
+	}
+	public double getbalance(int num) {
+		if(num<data.size())
+			return data.get(num).getaccbalance();
+			else {
+				System.out.println("User is not valid");
+				return 0;
+			}
+	}
+	public boolean isuservalid(int num,int pin) {
+		if(searchaccount(num)!=null) {
+			return searchaccount(num).ispinvalid(pin);
+		}
+		else
+			return false;
+	}
+	public void changepin(int num,int pin_no) {
+		if(searchaccount(num).ispinvalid(pin_no)) {
+			System.out.println("Enter pin number that you want to change:");
+			int pin_num=sc.nextInt();
+			searchaccount(num).setpin(pin_num);
+			System.out.println("Succesfully changed");
+			//return searchaccount(num).getpin();
+		}
+		else {
+			System.out.println("Invalid credentials..please try again");
+			//return 0;
+		}
+	}
+	
+}
