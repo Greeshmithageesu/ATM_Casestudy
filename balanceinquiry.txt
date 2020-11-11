@@ -1,0 +1,13 @@
+class Balanceinquiry{
+	private int accnum;
+	private Database data;
+	public Balanceinquiry(int num,Database bankdata) {
+		this.accnum=num;
+		this.data=bankdata;
+	}
+	void execute() {
+		double balance=data.getbalance(accnum);
+		System.out.println("Your account balance is:");
+		System.out.println(balance);
+	}
+}
