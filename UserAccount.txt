@@ -1,0 +1,34 @@
+class Useraccount{
+	private int accountnum;
+	private int pin;
+	private double balance=0;
+	ArrayList <Pair>pl=new ArrayList<>();
+	public int getaccountnum() {
+		return this.accountnum;
+	}
+	public void setaccountnum(int num) {
+	   this.accountnum=num;
+	}
+	public int getpin() {
+		return this.pin;
+	}
+	public void setpin(int pinnum) {
+		this.pin=pinnum;
+	}
+	public void credit(double amount) {
+		this.balance+=amount;
+	}
+	public void debit(double amount) {
+		this.balance-=amount;
+	}
+	public double getaccbalance() {
+		return this.balance;
+	}
+	public boolean ispinvalid(int pin) {
+		if(this.pin==pin)
+			return true;
+		else
+			return false;
+	}
+	
+}
